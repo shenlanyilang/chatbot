@@ -1,9 +1,7 @@
 # -*- coding:utf-8 -*-
 import json
 from gensim.models.keyedvectors import Word2VecKeyedVectors
-import re
 from typing import List
-import numpy as np
 
 
 class Embedding(object):
@@ -35,3 +33,10 @@ class Embedding(object):
     def _get_embedding_dim(self):
         word = self.embedding.index2word[0]
         return len(self.embedding[word])
+
+
+if __name__ == '__main__':
+    import numpy as np
+    a = np.array([1,2,3,4])
+    print(a.shape)
+    print('hello word')

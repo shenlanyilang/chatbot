@@ -1,6 +1,6 @@
 # -*- coding:utf-8 -*-
 import json
-
+import codecs
 
 def write_json(obj, path):
     with open(path, 'w') as f:
