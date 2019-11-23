@@ -39,6 +39,19 @@ class ChatBot(object):
         else:
             return self._gen_suggest_qs(question)
 
+    def eval(self, question, topn=10):
+        words = list(jieba.cut(question))
+        candidates_qids = self.retriever.search(words, top=10) + self.retriever.shallow_match(words, top=10)
+        cands_qs = []
+        for row in self.retriever.data[self.retriever.data['qid'].isin(candidates_qids)].itertuples():
+            cands_qs.append((row.qid, row.question))
+        matched_qs = self.matcher.match(question, cands_qs, top=20)
+        qids, _ = zip(*matched_qs[:topn])
+        res = self.retriever.data[self.retriever.data['qid'].isin(qids)]['question'].tolist()
+        if len(res) < topn:
+            res += [''] * (topn - len(res))
+        return res
+
     def _gen_suggest_qs(self, question):
         return '非常抱歉，我不太明白您的意思'
 

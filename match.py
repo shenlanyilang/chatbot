@@ -117,7 +117,7 @@ class SemanticMatch(object):
 
     def match(self, question:str, candidates:List[Tuple[int, str]], top=3):
         """
-        candidates是召回的候选问题list，list中是(pid,question)组成的tuple
+        candidates是召回的候选问题list，list中是(qid,question)组成的tuple
         :param question:
         :param candidates:
         :param top:
